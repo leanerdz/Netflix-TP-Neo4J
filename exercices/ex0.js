@@ -1,8 +1,8 @@
-/**
- *
- * @param client Axios
- * @returns {Promise<void>}
- */
+// /**
+//  *
+//  * @param client Axios
+//  * @returns {Promise<void>}
+//  */
 module.exports = async function (session) {
     const personName = "Henri"
     // duplicate this file to add other exercices.
@@ -12,3 +12,4 @@ module.exports = async function (session) {
     console.log("🎉 Exercice 0 is a sample on how to create a new file ".black.bgGreen);
 
 }
+

@@ -39,7 +39,7 @@ require('dotenv').config();
             console.log(error);
         } finally {
             console.log(`👋 Closing Session`.gray);
-            await session.close()
+            // await session.close()
         }
     } catch (error) {
 
@@ -48,8 +48,8 @@ require('dotenv').config();
 
     } finally {
         console.log(`👋 Closing Driver`.gray);
-        await driver.close()
-        exit(0);
+        // await driver.close()
+        // exit(0);
     }
 
 

@@ -11,27 +11,27 @@ module.exports = async function (session) {
     .pipe(csv())
     .on('data', function (chunk) {
         const titleParts = chunk.Title.split(':');
+        const dateStartTime = new Date (chunk.StartTime)
         const newRow = {
             ProfileName: chunk.ProfileName,
-            StartTime: chunk.StartTime,
+            StartTime: dateStartTime.toISOString(),
             Duration: chunk.Duration,
-            Attributes: chunk.Attributes,
-            SupplementalVideoType: chunk.SupplementalVideoType,
+            // Attributes: chunk.Attributes,
+            // SupplementalVideoType: chunk.SupplementalVideoType,
             DeviceType: chunk.DeviceType,
-            Bookmark: chunk.Bookmark,
-            LatestBookmark: chunk.LatestBookmark,
+            // Bookmark: dateBookmark.toISOString(),
+            // LatestBookmark: dateLatestBookmark.toISOString(),
             Country: chunk.Country,
             Title: titleParts[0].trim(),
         };
-        if (titleParts.length > 1) {
-            newRow.Season = titleParts[1].trim();
-        }
-
         if (titleParts.length > 2) {
+            newRow.Season = titleParts[1].trim();
             newRow.Episode = titleParts[2].trim();
         }
-
-        processedData.push(newRow);
+        if (chunk.Attributes != "Autoplayed: user action: None; " && chunk.SupplementalVideoType != "TEASER_TRAILER" && chunk.SupplementalVideoType != "TRAILER" && chunk.SupplementalVideoType != "CINEMAGRAPH" && chunk.SupplementalVideoType != "HOOK" && chunk.SupplementalVideoType != "PROMOTIONAL" && chunk.SupplementalVideoType != "RECAP") {
+            processedData.push(newRow);
+        } 
+    
     });
     reader.on('end', function () {
         console.debug("File Read successfully");
